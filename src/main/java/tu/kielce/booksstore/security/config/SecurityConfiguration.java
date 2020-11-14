@@ -8,13 +8,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import tu.kielce.booksstore.security.services.UserService;
+import tu.kielce.booksstore.security.services.SecurityUserService;
 
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final UserService userService;
+    private final SecurityUserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

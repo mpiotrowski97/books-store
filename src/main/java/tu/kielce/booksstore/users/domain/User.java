@@ -1,4 +1,4 @@
-package tu.kielce.booksstore.security.domain;
+package tu.kielce.booksstore.users.domain;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -37,28 +37,11 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String roles = "";
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(getRoles().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-    }
+    public String[] getRoles() {
+        if (null == roles) {
+            return new String[0];
+        }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return roles.split(",");
     }
 }
