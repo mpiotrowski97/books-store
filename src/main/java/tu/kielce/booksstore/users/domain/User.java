@@ -2,22 +2,18 @@ package tu.kielce.booksstore.users.domain;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
-@Data
 @Table(name = "users")
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder()
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -35,7 +31,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String roles = "";
+    private String roles;
 
     public String[] getRoles() {
         if (null == roles) {
@@ -43,5 +39,15 @@ public class User {
         }
 
         return roles.split(",");
+    }
+
+    public static class UserBuilder {
+        private String roles;
+
+
+        public UserBuilder roles(UserType[] roles) {
+            this.roles = Arrays.stream(roles).map(UserType::toString).collect(Collectors.joining(","));
+            return this;
+        }
     }
 }

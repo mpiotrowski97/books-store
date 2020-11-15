@@ -2,11 +2,12 @@ package tu.kielce.booksstore.security.web.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import tu.kielce.booksstore.security.web.controllers.model.RegisterModel;
+import org.springframework.web.bind.annotation.*;
+import tu.kielce.booksstore.security.web.exceptions.UserDataForbidden;
+import tu.kielce.booksstore.security.web.model.RegisterModel;
 import tu.kielce.booksstore.users.UsersFacade;
+import tu.kielce.booksstore.users.domain.UserType;
+import tu.kielce.booksstore.users.exceptions.UserExistsException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -14,17 +15,26 @@ import java.security.Principal;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-class SecurityController {
+public class SecurityController {
     private final UsersFacade usersFacade;
 
-    @RequestMapping("login")
+    @GetMapping("login")
     public Principal login(Principal user) {
         return user;
     }
 
-    @RequestMapping("register")
+    @PostMapping("register")
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterModel registerModel) {
-        usersFacade.createUser(registerModel.getUsername(), registerModel.getPassword(), registerModel.getEmail());
+        try {
+            usersFacade.createUser(
+                    registerModel.getUsername(),
+                    registerModel.getPassword(),
+                    registerModel.getEmail(),
+                    new UserType[]{UserType.ROLE_USER}
+            );
+        } catch (UserExistsException e) {
+            throw new UserDataForbidden();
+        }
 
         return ResponseEntity.status(202).build();
     }

@@ -1,6 +1,5 @@
-package tu.kielce.booksstore.security.web.controllers.model;
+package tu.kielce.booksstore.security.web.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

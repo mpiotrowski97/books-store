@@ -26,6 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/auth/register").anonymous()
+                .antMatchers("/auth/login").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

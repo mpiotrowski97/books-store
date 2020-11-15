@@ -14,6 +14,5 @@ public class UserValidator {
         return userRepository
                 .findByUsernameOrEmail(user.getUsername(), user.getEmail())
                 .isEmpty();
-
     }
 }

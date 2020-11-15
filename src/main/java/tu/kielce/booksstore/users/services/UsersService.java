@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.users.domain.User;
 import tu.kielce.booksstore.users.domain.UserRepository;
+import tu.kielce.booksstore.users.domain.UserType;
+import tu.kielce.booksstore.users.exceptions.UserExistsException;
 import tu.kielce.booksstore.users.validators.UserValidator;
 
 @Service
@@ -14,17 +16,17 @@ public class UsersService {
     private final UserRepository userRepository;
     private final UserValidator userValidator;
 
-    public User create(String username, String password, String email) {
-        User user =                 User
+    public User create(String username, String password, String email, UserType[] roles) throws UserExistsException {
+        User user = User
                 .builder()
                 .email(email)
-                .roles("")
+                .roles(roles)
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .build();
 
         if (!userValidator.isUniqueUser(user)) {
-            throw new RuntimeException("User already exists");
+            throw new UserExistsException();
         }
 
         return userRepository.save(user);
