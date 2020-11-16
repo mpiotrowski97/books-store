@@ -33,6 +33,9 @@ public class User {
     @Column(nullable = false)
     private String roles;
 
+    @Column()
+    private boolean enabled;
+
     public String[] getRoles() {
         if (null == roles) {
             return new String[0];

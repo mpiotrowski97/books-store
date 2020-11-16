@@ -1,5 +1,7 @@
 package tu.kielce.booksstore.users;
 
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.users.domain.User;
@@ -20,12 +22,13 @@ public class UsersFacade {
         return userRepository.findByUsername(username);
     }
 
-    public void createUser(
+    public User createUser(
             String username,
             String password,
             String email,
-            UserType[] roles
+            UserType[] roles,
+            boolean enabled
     ) throws UserExistsException {
-        usersService.create(username, password, email, roles);
+        return usersService.create(username, password, email, roles, enabled);
     }
 }

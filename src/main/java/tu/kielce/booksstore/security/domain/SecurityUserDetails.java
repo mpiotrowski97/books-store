@@ -14,16 +14,17 @@ import java.util.Collection;
 public class SecurityUserDetails implements UserDetails {
     private final String password;
     private final String username;
+    private final boolean enabled;
     Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return enabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return enabled;
     }
 
     @Override
@@ -33,6 +34,6 @@ public class SecurityUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
 }

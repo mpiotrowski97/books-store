@@ -15,6 +15,7 @@ public class UserToUserDetailsMapper {
                 .builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
+                .enabled(user.isEnabled())
                 .authorities(
                         Arrays.stream(user.getRoles()).map(SimpleGrantedAuthority::new).collect(Collectors.toSet())
                 )

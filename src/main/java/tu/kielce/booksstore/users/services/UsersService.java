@@ -16,12 +16,19 @@ public class UsersService {
     private final UserRepository userRepository;
     private final UserValidator userValidator;
 
-    public User create(String username, String password, String email, UserType[] roles) throws UserExistsException {
+    public User create(
+            String username,
+            String password,
+            String email,
+            UserType[] roles,
+            boolean enabled
+    ) throws UserExistsException {
         User user = User
                 .builder()
                 .email(email)
                 .roles(roles)
                 .username(username)
+                .enabled(enabled)
                 .password(passwordEncoder.encode(password))
                 .build();
 
