@@ -9,6 +9,9 @@ import tu.kielce.booksstore.users.domain.UserType;
 import tu.kielce.booksstore.users.exceptions.UserExistsException;
 import tu.kielce.booksstore.users.validators.UserValidator;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UsersService {
@@ -37,5 +40,27 @@ public class UsersService {
         }
 
         return userRepository.save(user);
+    }
+
+    public void changePassword(UUID userId, String password) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (null == user) {
+            return;
+        }
+
+        user.setPassword(passwordEncoder.encode(password));
+    }
+
+    public void enableUser(UUID userId) {
+        User user = userRepository
+                .findById(userId)
+                .orElse(null);
+
+        if (null == user) {
+            return;
+        }
+
+        user.enable();
     }
 }

@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
+    @Column(length = 36, updatable = false, nullable = false)
     private UUID id;
 
     @Column(nullable = false)
@@ -27,6 +27,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Setter
     @Column(nullable = false)
     private String password;
 
@@ -52,5 +53,9 @@ public class User {
             this.roles = Arrays.stream(roles).map(UserType::toString).collect(Collectors.joining(","));
             return this;
         }
+    }
+
+    public void enable() {
+        this.enabled = true;
     }
 }

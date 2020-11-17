@@ -5,7 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tu.kielce.booksstore.security.services.AuthService;
 import tu.kielce.booksstore.security.web.exceptions.UserDataForbidden;
+import tu.kielce.booksstore.security.web.model.ForbiddenPasswordModel;
 import tu.kielce.booksstore.security.web.model.RegisterModel;
+import tu.kielce.booksstore.security.web.model.ResetPasswordModel;
+import tu.kielce.booksstore.security.web.model.VerificationModel;
 import tu.kielce.booksstore.users.exceptions.UserExistsException;
 
 import javax.validation.Valid;
@@ -31,5 +34,23 @@ public class SecurityController {
         }
 
         return ResponseEntity.status(202).build();
+    }
+
+    @PostMapping("forbidden-password")
+    public ResponseEntity<Void> forbiddenPassword(@RequestBody @Valid ForbiddenPasswordModel forbiddenPasswordModel) {
+        authService.forbiddenPassword(forbiddenPasswordModel);
+        return ResponseEntity.status(200).build();
+    }
+
+    @PostMapping("reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody @Valid ResetPasswordModel resetPasswordModel) {
+        authService.resetUserPassword(resetPasswordModel);
+        return ResponseEntity.status(200).build();
+    }
+
+    @PostMapping("user-verification")
+    public ResponseEntity<Void> verification(@RequestBody @Valid VerificationModel verificationModel) {
+        authService.verifyUser(verificationModel);
+        return ResponseEntity.status(200).build();
     }
 }

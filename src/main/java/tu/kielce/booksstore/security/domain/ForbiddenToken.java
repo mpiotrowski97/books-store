@@ -2,18 +2,17 @@ package tu.kielce.booksstore.security.domain;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "verifications")
+@Table(name = "forbidden_tokens")
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Verification {
+public class ForbiddenToken {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -21,6 +20,5 @@ public class Verification {
     private UUID code;
 
     @Column(length = 36)
-    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID userId;
 }
