@@ -18,9 +18,10 @@ public class Verification {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(length = 36, updatable = false, nullable = false)
+    @Type(type = "uuid-char")
     private UUID code;
 
     @Column(length = 36)
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type = "uuid-char")
     private UUID userId;
 }
