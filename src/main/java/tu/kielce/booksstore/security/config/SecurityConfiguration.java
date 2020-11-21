@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import tu.kielce.booksstore.security.services.SecurityUserService;
@@ -13,6 +14,7 @@ import tu.kielce.booksstore.security.services.SecurityUserService;
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @RequiredArgsConstructor
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final SecurityUserService userService;
 
@@ -26,11 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/register").anonymous()
-                .antMatchers("/auth/login").anonymous()
-                .antMatchers("/auth/user-verification").anonymous()
-                .antMatchers("/auth/forbidden-password").anonymous()
-                .antMatchers("/auth/reset-password").anonymous()
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/**").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

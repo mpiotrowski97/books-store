@@ -15,6 +15,7 @@ public class SecurityUserDetails implements UserDetails {
     private final String password;
     private final String username;
     private final boolean enabled;
+    private final String email;
     Collection<? extends GrantedAuthority> authorities;
 
     @Override
@@ -29,7 +30,7 @@ public class SecurityUserDetails implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return enabled;
     }
 
     @Override

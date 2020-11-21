@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import tu.kielce.booksstore.security.domain.ForbiddenToken;
 import tu.kielce.booksstore.security.domain.ForbiddenTokenRepository;
@@ -17,6 +18,7 @@ public class SendResetPasswordTokenListener {
     private final JavaMailSender javaMailSender;
 
     @EventListener
+    @Async
     public void  handleForbiddenPasswordEvent(ForbiddenPasswordEvent forbiddenPasswordEvent) {
         User user = forbiddenPasswordEvent.getUser();
 
