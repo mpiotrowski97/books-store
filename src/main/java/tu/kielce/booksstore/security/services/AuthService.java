@@ -9,6 +9,7 @@ import tu.kielce.booksstore.security.domain.Verification;
 import tu.kielce.booksstore.security.domain.VerificationRepository;
 import tu.kielce.booksstore.security.events.ForbiddenPasswordEvent;
 import tu.kielce.booksstore.security.events.UserRegisteredEvent;
+import tu.kielce.booksstore.security.mappers.RegisterModelToUserCreateModelMapper;
 import tu.kielce.booksstore.security.web.model.ForbiddenPasswordModel;
 import tu.kielce.booksstore.security.web.model.RegisterModel;
 import tu.kielce.booksstore.security.web.model.ResetPasswordModel;
@@ -30,14 +31,15 @@ public class AuthService {
     private final ForbiddenTokenRepository forbiddenTokenRepository;
     private final VerificationRepository verificationRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final RegisterModelToUserCreateModelMapper registerModelToUserCreateModelMapper;
 
     public void register(RegisterModel registerModel) throws UserExistsException {
         User user = usersService.create(
-                registerModel.getUsername(),
-                registerModel.getPassword(),
-                registerModel.getEmail(),
-                new UserType[]{UserType.ROLE_USER},
-                false
+                registerModelToUserCreateModelMapper.map(
+                        registerModel,
+                        new UserType[]{UserType.ROLE_USER},
+                        false
+                )
         );
 
         applicationEventPublisher.publishEvent(UserRegisteredEvent.of().user(user).build());
