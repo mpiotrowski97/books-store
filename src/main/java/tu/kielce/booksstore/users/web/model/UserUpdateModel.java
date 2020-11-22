@@ -8,9 +8,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
-@Builder
 @Getter
-public class UserCreateModel {
+@Builder
+public class UserUpdateModel {
     @NotNull
     @Email
     private final String email;
@@ -18,7 +18,6 @@ public class UserCreateModel {
     @NotNull
     private final String username;
 
-    @NotNull
     private final String password;
 
     @NotNull

@@ -12,4 +12,5 @@ public class UserModel {
     private final String username;
     private final String email;
     private final String[] roles;
+    private final boolean enabled;
 }

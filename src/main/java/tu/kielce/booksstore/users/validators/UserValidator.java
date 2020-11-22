@@ -12,7 +12,7 @@ public class UserValidator {
 
     public boolean isUniqueUser(User user) {
         return userRepository
-                .findByUsernameOrEmail(user.getUsername(), user.getEmail())
+                .findByUsernameOrEmailAndIdNot(user.getUsername(), user.getEmail(), user.getId())
                 .isEmpty();
     }
 }

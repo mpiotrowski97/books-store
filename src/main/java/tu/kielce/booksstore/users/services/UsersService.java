@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tu.kielce.booksstore.security.domain.SecurityUserDetails;
 import tu.kielce.booksstore.users.domain.User;
 import tu.kielce.booksstore.users.domain.UserRepository;
@@ -12,6 +13,7 @@ import tu.kielce.booksstore.users.exceptions.UserExistsException;
 import tu.kielce.booksstore.users.validators.UserValidator;
 import tu.kielce.booksstore.users.exceptions.UserDoesNotExistException;
 import tu.kielce.booksstore.users.web.model.UserCreateModel;
+import tu.kielce.booksstore.users.web.model.UserUpdateModel;
 
 import java.util.UUID;
 
@@ -76,5 +78,26 @@ public class UsersService {
         }
 
         userRepository.delete(user);
+    }
+
+    public User update(UUID id, UserUpdateModel userUpdateModel) throws UserExistsException {
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(UserDoesNotExistException::new);
+
+        user.setEmail(userUpdateModel.getEmail());
+        user.setUsername(userUpdateModel.getUsername());
+        user.setEnabled(userUpdateModel.isEnabled());
+        user.setRoles(String.join(",", userUpdateModel.getRoles()));
+
+        if (!StringUtils.isEmpty(userUpdateModel.getPassword())) {
+            user.setPassword(passwordEncoder.encode(userUpdateModel.getPassword()));
+        }
+
+        if (!userValidator.isUniqueUser(user)) {
+            throw new UserExistsException();
+        }
+
+        return userRepository.save(user);
     }
 }

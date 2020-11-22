@@ -11,6 +11,7 @@ public class UserToUserModelMapper {
                 .builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
+                .enabled(user.isEnabled())
                 .id(user.getId())
                 .roles(user.getRoles())
                 .build();
