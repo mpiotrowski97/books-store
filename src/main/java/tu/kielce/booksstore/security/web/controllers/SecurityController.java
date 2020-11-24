@@ -1,8 +1,11 @@
 package tu.kielce.booksstore.security.web.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tu.kielce.booksstore.books.domain.Category;
+import tu.kielce.booksstore.books.domain.CategoryRepository;
 import tu.kielce.booksstore.security.mappers.PrincipalToLoginModelMapper;
 import tu.kielce.booksstore.security.services.AuthService;
 import tu.kielce.booksstore.security.web.exceptions.UserDataForbidden;
@@ -11,6 +14,7 @@ import tu.kielce.booksstore.users.exceptions.UserExistsException;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController

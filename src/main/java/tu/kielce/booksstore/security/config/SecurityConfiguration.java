@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/context/init").permitAll()
                 .antMatchers("/auth/**").anonymous()
                 .antMatchers("/users/**").hasRole(Role.ADMINISTRATOR.toString())
                 .anyRequest().authenticated()
