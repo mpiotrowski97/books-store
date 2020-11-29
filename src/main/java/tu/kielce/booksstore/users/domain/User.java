@@ -30,7 +30,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Setter
     @Column(nullable = false)
     private String password;
 
@@ -39,6 +38,24 @@ public class User {
 
     @Column()
     private boolean enabled;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    private String street;
+
+    private String postcode;
+
+    private String city;
+
+    private String phoneNumber;
+
+    private String country;
+
+    private String province;
 
     public String[] getRoles() {
         if (null == roles) {
