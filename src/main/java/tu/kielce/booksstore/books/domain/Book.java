@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "books")
@@ -22,6 +23,10 @@ public class Book {
     private String description;
 
     private String publishedBy;
+
+    private BigDecimal price;
+
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
