@@ -1,3 +1,7 @@
+INSERT INTO users values ('5a2349c2-2dc5-11eb-adc1-0242ac120002', 'admin@example.org', 1, '$2y$12$eaEnwkl1mx2SwFWBd/FrQOOwW0LlpKQ70LVcT5eeOslp.tengvQIu', 'ROLE_ADMINISTRATOR', 'admin');
+INSERT INTO users values ('5a2349c2-2dc5-11eb-adc1-0242ac120002', 'user@example.org', 1, '$2y$12$e.AFTgPPWXSOQ2rfwukgseWv8QnNUGzdm.FOxmHArbszHhK5boNq6 ', 'ROLE_USER', 'user');
+INSERT INTO users values ('5a2349c2-2dc5-11eb-adc1-0242ac120002', 'moderator@example.org', 1, '$2y$12$dAS5OlcDjCvCzFvF9YL0Te5FHldCbxl.47g4L6LLNmWS6.AW9Wrea ', 'ROLE_MODERATOR', 'moderator');
+
 INSERT INTO categories(id, name) VALUES
 ('5a2349c2-2dc5-11eb-adc1-0242ac120002', 'Fantasy'),
 ('60a2c00c-2dc5-11eb-adc1-0242ac120002', 'Adventure'),
