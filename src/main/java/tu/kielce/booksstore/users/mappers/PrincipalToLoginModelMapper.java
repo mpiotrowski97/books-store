@@ -1,18 +1,16 @@
-package tu.kielce.booksstore.context.factory;
+package tu.kielce.booksstore.users.mappers;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import tu.kielce.booksstore.books.domain.Category;
-import tu.kielce.booksstore.context.web.model.ContextInitModel;
 import tu.kielce.booksstore.users.domain.SecurityUserDetails;
 import tu.kielce.booksstore.users.web.model.AuthUserModel;
+import tu.kielce.booksstore.users.web.model.LoginModel;
 
 import java.security.Principal;
-import java.util.Collection;
 
 @Component
-public class ContextInitModelFactory {
-    public ContextInitModel create(Principal principal, Collection<Category> categories) {
+public class PrincipalToLoginModelMapper {
+    public LoginModel map(Principal principal) {
         SecurityUserDetails securityUserDetails = (SecurityUserDetails) ((Authentication) principal).getPrincipal();
         AuthUserModel userModel = AuthUserModel
                 .builder()
@@ -21,9 +19,6 @@ public class ContextInitModelFactory {
                 .roles(securityUserDetails.getAuthorities().stream().map(Object::toString).toArray(String[]::new))
                 .build();
 
-        return ContextInitModel.builder()
-                .categories(categories)
-                .authUserModel(userModel)
-                .build();
+        return LoginModel.builder().user(userModel).build();
     }
 }

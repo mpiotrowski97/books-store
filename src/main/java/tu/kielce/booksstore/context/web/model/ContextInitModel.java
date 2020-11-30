@@ -3,7 +3,7 @@ package tu.kielce.booksstore.context.web.model;
 import lombok.Builder;
 import lombok.Getter;
 import tu.kielce.booksstore.books.domain.Category;
-import tu.kielce.booksstore.security.web.model.AuthUserModel;
+import tu.kielce.booksstore.users.web.model.AuthUserModel;
 
 import java.util.Collection;
 

@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import tu.kielce.booksstore.security.domain.SecurityUserDetails;
+import tu.kielce.booksstore.users.domain.SecurityUserDetails;
 import tu.kielce.booksstore.users.domain.User;
 import tu.kielce.booksstore.users.domain.UserRepository;
 import tu.kielce.booksstore.users.exceptions.CannotDeleteYourselfException;
