@@ -1,6 +1,9 @@
 package tu.kielce.booksstore.cart.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -10,6 +13,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "cart_items")
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartItem {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -18,9 +24,15 @@ public class CartItem {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @Column(length = 36)
+    @Type(type = "uuid-char")
     private UUID userId;
 
     private String bookIsbn;
 
-    private Integer quantity;
+    private int quantity;
+
+    public void addQuantity(int quantity) {
+        this.quantity = this.quantity + quantity;
+    }
 }

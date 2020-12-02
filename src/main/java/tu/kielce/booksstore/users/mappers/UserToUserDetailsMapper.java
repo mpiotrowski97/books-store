@@ -13,6 +13,7 @@ public class UserToUserDetailsMapper {
     public SecurityUserDetails map(User user) {
         return SecurityUserDetails
                 .builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .enabled(user.isEnabled())

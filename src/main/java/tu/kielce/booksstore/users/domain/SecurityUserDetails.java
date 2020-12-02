@@ -7,11 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Getter
 @Builder
 @AllArgsConstructor
 public class SecurityUserDetails implements UserDetails {
+    private final UUID id;
     private final String password;
     private final String username;
     private final boolean enabled;
