@@ -3,6 +3,8 @@ package tu.kielce.booksstore.books.web.model;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Builder
 public class BookModel {
@@ -12,4 +14,5 @@ public class BookModel {
     private final String title;
     private final String category;
     private final String description;
+    private final BigDecimal price;
 }
