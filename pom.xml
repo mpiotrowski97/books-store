@@ -9,16 +9,22 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>tu.kielce</groupId>
-    <artifactId>books-store</artifactId>
+    <artifactId>bs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>books-store</name>
-    <description>Demo project for Spring Boot</description>
+    <name>Books Store</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>application</module>
+        <module>modules</module>
+    </modules>
 
     <properties>
         <java.version>11</java.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -73,14 +79,4 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
