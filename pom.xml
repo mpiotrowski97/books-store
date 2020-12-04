@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>application</module>
-        <module>modules</module>
+        <module>bs-application</module>
+        <module>bs-modules</module>
     </modules>
 
     <properties>
