@@ -9,19 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tu.kielce.bs.book</groupId>
-    <artifactId>bs-book</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>user</artifactId>
 
-    <name>bs-book</name>
+    <packaging>pom</packaging>
 
+    <name>bs-user</name>
     <modules>
-        <module>bs-book-domain</module>
-        <module>bs-book-api</module>
+        <module>bs-user-api</module>
+        <module>bs-user-domain</module>
+        <module>bs-user-infrastructure</module>
     </modules>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
 </project>

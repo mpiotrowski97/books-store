@@ -11,10 +11,22 @@
     <artifactId>application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>bs-application</name>
+
     <dependencies>
         <dependency>
-            <groupId>tu.kielce.bs.book</groupId>
-            <artifactId>api</artifactId>
+            <groupId>tu.kielce.bs</groupId>
+            <artifactId>book</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>tu.kielce.bs</groupId>
+            <artifactId></artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>tu.kielce.bs</groupId>
+            <artifactId>user</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

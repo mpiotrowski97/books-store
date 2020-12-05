@@ -11,12 +11,14 @@
     <groupId>tu.kielce</groupId>
     <artifactId>bs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Books Store</name>
+    <name>bs</name>
     <packaging>pom</packaging>
 
     <modules>
         <module>bs-application</module>
-        <module>bs-modules</module>
+        <module>modules/bs-book</module>
+        <module>modules/bs-cart</module>
+        <module>modules/bs-user</module>
     </modules>
 
     <properties>
