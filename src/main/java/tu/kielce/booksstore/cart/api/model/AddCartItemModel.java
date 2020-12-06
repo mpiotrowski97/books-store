@@ -1,4 +1,4 @@
-package tu.kielce.booksstore.cart.web.model;
+package tu.kielce.booksstore.cart.api.model;
 
 import lombok.Getter;
 

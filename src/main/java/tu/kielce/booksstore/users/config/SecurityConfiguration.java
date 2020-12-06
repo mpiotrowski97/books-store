@@ -12,6 +12,12 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import tu.kielce.booksstore.users.domain.Role;
 import tu.kielce.booksstore.users.services.SecurityUserService;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @RequiredArgsConstructor
