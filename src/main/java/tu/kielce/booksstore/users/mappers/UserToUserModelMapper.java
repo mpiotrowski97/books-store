@@ -14,6 +14,15 @@ public class UserToUserModelMapper {
                 .enabled(user.isEnabled())
                 .id(user.getId())
                 .roles(user.getRoles())
+                .firstName(user.getFirstName())
+                .phoneNumber(user.getPhoneNumber())
+                .lastName(user.getLastName())
+                .city(user.getCity())
+                .street(user.getStreet())
+                .postcode(user.getPostcode())
+                .houseNumber(user.getHouseNumber())
+                .province(user.getProvince())
+                .country(user.getCountry())
                 .build();
     }
 }

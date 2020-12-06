@@ -18,6 +18,15 @@ public class RegisterModelToUserCreateModelMapper {
                 .password(registerModel.getPassword())
                 .roles(Arrays.stream(roles).map(Objects::toString).toArray(String[]::new))
                 .enabled(enabled)
+                .firstName(registerModel.getFirstName())
+                .phoneNumber(registerModel.getPhoneNumber())
+                .lastName(registerModel.getLastName())
+                .city(registerModel.getCity())
+                .street(registerModel.getStreet())
+                .postcode(registerModel.getPostcode())
+                .houseNumber(registerModel.getHouseNumber())
+                .province(registerModel.getProvince())
+                .country(registerModel.getCountry())
                 .build();
     }
 }

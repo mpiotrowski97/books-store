@@ -32,6 +32,15 @@ public class UsersService {
                 .username(userCreateModel.getUsername())
                 .enabled(userCreateModel.isEnabled())
                 .password(passwordEncoder.encode(userCreateModel.getPassword()))
+                .firstName(userCreateModel.getFirstName())
+                .lastName(userCreateModel.getLastName())
+                .phoneNumber(userCreateModel.getPhoneNumber())
+                .city(userCreateModel.getCity())
+                .postcode(userCreateModel.getPostcode())
+                .street(userCreateModel.getStreet())
+                .houseNumber(userCreateModel.getHouseNumber())
+                .province(userCreateModel.getProvince())
+                .country(userCreateModel.getCountry())
                 .build();
 
         if (!userValidator.isUniqueUser(user)) {
@@ -89,6 +98,15 @@ public class UsersService {
         user.setUsername(userUpdateModel.getUsername());
         user.setEnabled(userUpdateModel.isEnabled());
         user.setRoles(String.join(",", userUpdateModel.getRoles()));
+        user.setFirstName(userUpdateModel.getFirstName());
+        user.setLastName(userUpdateModel.getLastName());
+        user.setPhoneNumber(userUpdateModel.getPhoneNumber());
+        user.setCity(userUpdateModel.getCity());
+        user.setPostcode(userUpdateModel.getPostcode());
+        user.setStreet(userUpdateModel.getStreet());
+        user.setHouseNumber(userUpdateModel.getHouseNumber());
+        user.setProvince(userUpdateModel.getProvince());
+        user.setCountry(userUpdateModel.getCountry());
 
         if (!StringUtils.isEmpty(userUpdateModel.getPassword())) {
             user.setPassword(passwordEncoder.encode(userUpdateModel.getPassword()));

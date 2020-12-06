@@ -47,6 +47,8 @@ public class User {
 
     private String street;
 
+    private String houseNumber;
+
     private String postcode;
 
     private String city;

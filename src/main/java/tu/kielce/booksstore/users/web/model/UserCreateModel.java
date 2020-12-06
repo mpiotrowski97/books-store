@@ -27,6 +27,27 @@ public class UserCreateModel {
     @NotNull
     private final boolean enabled;
 
+    @NotNull
+    private final String firstName;
+
+    @NotNull
+    private final String lastName;
+
+    @NotNull
+    private final String phoneNumber;
+
+    private final String city;
+
+    private final String postcode;
+
+    private final String street;
+
+    private final String houseNumber;
+
+    private final String province;
+
+    private final String country;
+
     public UserType[] getUserTypes() {
         return Arrays.stream(roles).map(UserType::valueOf).toArray(UserType[]::new);
     }
