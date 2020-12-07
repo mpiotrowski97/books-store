@@ -8,7 +8,7 @@ import tu.kielce.booksstore.cart.domain.CartItem;
 import tu.kielce.booksstore.cart.domain.CartItemRepository;
 import tu.kielce.booksstore.cart.api.model.AddCartItemModel;
 import tu.kielce.booksstore.cart.domain.dto.SummaryDto;
-import tu.kielce.booksstore.users.domain.SecurityUserDetails;
+import tu.kielce.booksstore.user.domain.SecurityUserDetails;
 
 @Service
 @RequiredArgsConstructor

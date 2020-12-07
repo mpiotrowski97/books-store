@@ -4,26 +4,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import tu.kielce.booksstore.books.domain.Category;
 import tu.kielce.booksstore.context.web.model.ContextInitModel;
-import tu.kielce.booksstore.users.domain.SecurityUserDetails;
-import tu.kielce.booksstore.users.web.model.AuthUserModel;
+import tu.kielce.booksstore.user.domain.SecurityUserDetails;
+import tu.kielce.booksstore.user.api.web.model.AuthUserModel;
+import tu.kielce.booksstore.user.domain.dto.CurrentLoggedUser;
 
 import java.security.Principal;
 import java.util.Collection;
 
 @Component
 public class ContextInitModelFactory {
-    public ContextInitModel create(Principal principal, Collection<Category> categories) {
-        SecurityUserDetails securityUserDetails = (SecurityUserDetails) ((Authentication) principal).getPrincipal();
-        AuthUserModel userModel = AuthUserModel
-                .builder()
-                .username(securityUserDetails.getUsername())
-                .email(securityUserDetails.getEmail())
-                .roles(securityUserDetails.getAuthorities().stream().map(Object::toString).toArray(String[]::new))
-                .build();
-
+    public ContextInitModel create(CurrentLoggedUser currentLoggedUser, Collection<Category> categories) {
         return ContextInitModel.builder()
                 .categories(categories)
-                .authUserModel(userModel)
+                .currentLoggedUser(currentLoggedUser)
                 .build();
     }
 }
