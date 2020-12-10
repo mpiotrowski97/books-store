@@ -3,31 +3,27 @@ package tu.kielce.booksstore.user.api.web.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tu.kielce.booksstore.user.mappers.PrincipalToLoginModelMapper;
 import tu.kielce.booksstore.user.services.AuthService;
 import tu.kielce.booksstore.user.api.web.exceptions.UserDataForbidden;
 import tu.kielce.booksstore.user.api.web.model.*;
 import tu.kielce.booksstore.user.exceptions.UserExistsException;
+import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("auth")
 public class SecurityController {
     private final AuthService authService;
-    private final PrincipalToLoginModelMapper loginModelMapper;
+    private final SecurityUserService securityUserService;
 
     @GetMapping("login")
-    public ResponseEntity<LoginModel> user(Principal principal) {
+    public ResponseEntity<LoginModel> user() {
         return ResponseEntity
                 .status(200)
                 .body(
-                        Optional.ofNullable(principal)
-                                .map(loginModelMapper::map)
-                                .orElse(LoginModel.builder().build())
+                        LoginModel.builder().user(securityUserService.getCurrentLoggedUser()).build()
                 );
     }
 
