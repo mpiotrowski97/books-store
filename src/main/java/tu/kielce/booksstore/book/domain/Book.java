@@ -1,4 +1,4 @@
-package tu.kielce.booksstore.books.domain;
+package tu.kielce.booksstore.book.domain;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,6 @@
-package tu.kielce.booksstore.books.web.controllers;
+package tu.kielce.booksstore.book.web.controllers;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tu.kielce.booksstore.books.domain.BookRepository;
-import tu.kielce.booksstore.books.mappers.BookToBookModelMapper;
-import tu.kielce.booksstore.books.web.model.BookModel;
+import tu.kielce.booksstore.book.domain.BookRepository;
+import tu.kielce.booksstore.book.mappers.BookToBookModelMapper;
+import tu.kielce.booksstore.book.web.model.BookModel;
 
-import static tu.kielce.booksstore.books.specification.BookSpecifications.bookTitle;
-import static tu.kielce.booksstore.books.specification.BookSpecifications.category;
+import static tu.kielce.booksstore.book.specification.BookSpecifications.category;
 
 @RestController
 @RequestMapping("books")

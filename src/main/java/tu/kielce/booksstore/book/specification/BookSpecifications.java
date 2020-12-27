@@ -1,8 +1,8 @@
-package tu.kielce.booksstore.books.specification;
+package tu.kielce.booksstore.book.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
-import tu.kielce.booksstore.books.domain.Book;
+import tu.kielce.booksstore.book.domain.Book;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
