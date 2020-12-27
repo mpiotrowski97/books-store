@@ -81,3 +81,39 @@ create table verifications
 )
     engine = MyISAM;
 
+
+create table order_items
+(
+    id        varchar(36)    not null
+        primary key,
+    book_isbn varchar(255)   null,
+    order_id  varchar(36)    null,
+    price     decimal(19, 2) null,
+    quantity  int            null,
+    title     varchar(255)   null,
+    value     decimal(19, 2) null
+)
+    engine = MyISAM;
+
+create table orders
+(
+    id              varchar(36)    not null
+        primary key,
+    city            varchar(255)   null,
+    country         varchar(255)   null,
+    first_name      varchar(255)   null,
+    house_number    varchar(255)   null,
+    last_name       varchar(255)   null,
+    phone_number    varchar(255)   null,
+    postcode        varchar(255)   null,
+    products_cost   decimal(19, 2) null,
+    province        varchar(255)   null,
+    shipping_cost   decimal(19, 2) null,
+    shipping_method varchar(255)   null,
+    street          varchar(255)   null,
+    user_id         varchar(36)    null,
+    value           decimal(19, 2) null
+)
+    engine = MyISAM;
+
+
