@@ -13,4 +13,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, UUID> {
 
     @Query("SELECT new tu.kielce.booksstore.cart.domain.dto.CartItemDto(c.id, b.title, b.price, c.quantity) FROM CartItem c LEFT JOIN Book b on c.bookIsbn = b.isbn WHERE c.userId = ?1")
     Collection<CartItemDto> findAllForSummary(UUID userId);
+
+    void deleteAllByUserId(UUID userId);
 }

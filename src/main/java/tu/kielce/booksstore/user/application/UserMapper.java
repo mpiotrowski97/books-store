@@ -18,7 +18,10 @@ public class UserMapper {
                 .postcode(user.getPostcode())
                 .province(user.getProvince())
                 .country(user.getCountry())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .phoneNumber(user.getPhoneNumber())
+                .id(user.getId())
                 .build();
     }
 }

@@ -10,6 +10,8 @@ import tu.kielce.booksstore.cart.api.model.AddCartItemModel;
 import tu.kielce.booksstore.cart.domain.dto.SummaryDto;
 import tu.kielce.booksstore.user.domain.SecurityUserDetails;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CartService {
@@ -31,5 +33,9 @@ public class CartService {
     public SummaryDto createCartSummary() {
         val user = (SecurityUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new SummaryDto(cartItemRepository.findAllForSummary(user.getId()));
+    }
+
+    public void clearUserCart(UUID userId) {
+        cartItemRepository.deleteAllByUserId(userId);
     }
 }

@@ -1,7 +1,6 @@
 package tu.kielce.booksstore.order.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -13,6 +12,9 @@ import java.util.UUID;
 @Table(name = "orders")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(generator = "UUID")

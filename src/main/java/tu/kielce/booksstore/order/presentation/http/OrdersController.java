@@ -1,4 +1,4 @@
-package tu.kielce.booksstore.order.api.web;
+package tu.kielce.booksstore.order.presentation.http;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tu.kielce.booksstore.order.api.web.model.request.CreateOrderModel;
-import tu.kielce.booksstore.order.api.web.model.response.CreateOrderResponse;
+import tu.kielce.booksstore.order.presentation.http.model.request.NewOrderModel;
+import tu.kielce.booksstore.order.presentation.http.model.response.NewOrderResponse;
 import tu.kielce.booksstore.order.application.services.OrderService;
 
 import javax.validation.Valid;
@@ -19,8 +19,8 @@ public class OrdersController {
     private final OrderService orderService;
 
     @PostMapping("")
-    public ResponseEntity<CreateOrderResponse> createOrder(@RequestBody @Valid CreateOrderModel createOrderModel) {
-        orderService.createOrder(createOrderModel);
-        return ResponseEntity.ok(CreateOrderResponse.builder().build());
+    public ResponseEntity<NewOrderResponse> createOrder(@RequestBody @Valid NewOrderModel newOrderModel) {
+        orderService.createOrder(newOrderModel);
+        return ResponseEntity.ok(NewOrderResponse.builder().code("foo").build());
     }
 }
