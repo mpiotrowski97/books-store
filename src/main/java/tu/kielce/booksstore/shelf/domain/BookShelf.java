@@ -1,21 +1,21 @@
-package tu.kielce.booksstore.order.domain;
+package tu.kielce.booksstore.shelf.domain;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import tu.kielce.booksstore.order.domain.Order;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "book_shelf")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem {
+public class BookShelf {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -23,17 +23,9 @@ public class OrderItem {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name="order_id", nullable=false)
-    private Order order;
-
     private String bookIsbn;
 
-    private String title;
-
-    private BigDecimal price;
-
-    private Integer quantity;
-
-    private BigDecimal value;
+    @ManyToOne
+    @JoinColumn(name="shelf_id", nullable=false)
+    private Shelf shelf;
 }

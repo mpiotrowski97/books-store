@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import tu.kielce.booksstore.order.presentation.http.model.request.NewOrderModel;
 import tu.kielce.booksstore.order.presentation.http.model.response.NewOrderResponse;
 import tu.kielce.booksstore.order.application.services.OrderService;
+import tu.kielce.booksstore.order.presentation.http.model.response.OrderHistoryModel;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -22,5 +24,10 @@ public class OrdersController {
     public ResponseEntity<NewOrderResponse> createOrder(@RequestBody @Valid NewOrderModel newOrderModel) {
         orderService.createOrder(newOrderModel);
         return ResponseEntity.ok(NewOrderResponse.builder().code("foo").build());
+    }
+
+    @RequestMapping("/user")
+    public ResponseEntity<List<OrderHistoryModel>> userOrders() {
+        return ResponseEntity.ok(orderService.currentUserOrders());
     }
 }

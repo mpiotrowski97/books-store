@@ -116,4 +116,25 @@ create table orders
 )
     engine = MyISAM;
 
+create table book_shelf
+(
+    id        varchar(36)  not null
+        primary key,
+    book_isbn varchar(255) null,
+    shelf_id  varchar(36)  not null
+)
+    engine = MyISAM;
+
+create index FK37gwh62vvivx3t1tbwxxuy3y3
+    on book_shelf (shelf_id);
+
+create table shelves
+(
+    id      varchar(36)  not null
+        primary key,
+    name    varchar(255) null,
+    user_id varchar(36)  null
+)
+    engine = MyISAM;
+
 

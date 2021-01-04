@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -52,4 +53,7 @@ public class Order {
     private BigDecimal productsCost;
 
     private BigDecimal value;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<OrderItem> orderItems;
 }

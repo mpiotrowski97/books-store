@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.cart.application.services.CartService;
+import tu.kielce.booksstore.order.application.mappers.OrdersMapper;
 import tu.kielce.booksstore.order.domain.Order;
 import tu.kielce.booksstore.order.domain.OrderItem;
 import tu.kielce.booksstore.order.domain.OrderItemRepository;
 import tu.kielce.booksstore.order.domain.OrderRepository;
 import tu.kielce.booksstore.order.presentation.http.model.request.NewOrderModel;
 import tu.kielce.booksstore.order.presentation.http.model.request.OrderItemModel;
+import tu.kielce.booksstore.order.presentation.http.model.response.OrderHistoryModel;
 import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final CartService cartService;
+    private final OrdersMapper ordersMapper;
 
     @Transactional
     public void createOrder(NewOrderModel newOrderModel) {
@@ -54,7 +58,7 @@ public class OrderService {
             orderItemRepository.save(
                     OrderItem
                             .builder()
-                            .orderId(order.getId())
+                            .order(order)
                             .bookIsbn(orderItemModel.getId().toString())
                             .price(orderItemModel.getBookPrice())
                             .quantity(orderItemModel.getQuantity())
@@ -71,5 +75,13 @@ public class OrderService {
         return items.stream()
                 .map(item -> item.getBookPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public List<OrderHistoryModel> currentUserOrders() {
+        val loggedUser = securityUserService.getCurrentLoggedUser();
+        return orderRepository.findAllByUserId(loggedUser.getId())
+                .stream()
+                .map(ordersMapper::toOrderHistory)
+                .collect(Collectors.toList());
     }
 }
