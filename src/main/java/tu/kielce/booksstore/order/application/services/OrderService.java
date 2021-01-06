@@ -12,6 +12,7 @@ import tu.kielce.booksstore.order.domain.OrderRepository;
 import tu.kielce.booksstore.order.presentation.http.model.request.NewOrderModel;
 import tu.kielce.booksstore.order.presentation.http.model.request.OrderItemModel;
 import tu.kielce.booksstore.order.presentation.http.model.response.OrderHistoryModel;
+import tu.kielce.booksstore.payment.application.services.PaymentService;
 import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import javax.transaction.Transactional;
@@ -27,6 +28,7 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final CartService cartService;
     private final OrdersMapper ordersMapper;
+    private final PaymentService paymentService;
 
     @Transactional
     public void createOrder(NewOrderModel newOrderModel) {
@@ -55,7 +57,7 @@ public class OrderService {
         );
 
         for (OrderItemModel orderItemModel : newOrderModel.getItems()) {
-            orderItemRepository.save(
+            order.addOrderItem(orderItemRepository.save(
                     OrderItem
                             .builder()
                             .order(order)
@@ -65,10 +67,10 @@ public class OrderService {
                             .title(orderItemModel.getBookTitle())
                             .value(orderItemModel.getValue())
                             .build()
-            );
+            ));
         }
 
-        cartService.clearUserCart(currentUser.getId());
+        paymentService.createPayment(order);
     }
 
     private BigDecimal countItemsCost(List<OrderItemModel> items) {

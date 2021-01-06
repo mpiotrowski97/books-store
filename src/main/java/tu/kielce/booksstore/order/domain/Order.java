@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,4 +57,12 @@ public class Order {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private Set<OrderItem> orderItems;
+
+    public void addOrderItem(OrderItem orderItem) {
+        if (null == orderItems) {
+            orderItems = new HashSet<>();
+        }
+
+        orderItems.add(orderItem);
+    }
 }
