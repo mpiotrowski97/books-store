@@ -22,12 +22,16 @@ public class OrdersController {
 
     @PostMapping("")
     public ResponseEntity<NewOrderResponse> createOrder(@RequestBody @Valid NewOrderModel newOrderModel) {
-        orderService.createOrder(newOrderModel);
-        return ResponseEntity.ok(NewOrderResponse.builder().code("foo").build());
+        return ResponseEntity.ok(orderService.createOrder(newOrderModel));
     }
 
     @RequestMapping("/user")
     public ResponseEntity<List<OrderHistoryModel>> userOrders() {
         return ResponseEntity.ok(orderService.currentUserOrders());
+    }
+
+    @RequestMapping("/notify")
+    public ResponseEntity<Void> changeOrderStatus() {
+        return ResponseEntity.ok().build();
     }
 }

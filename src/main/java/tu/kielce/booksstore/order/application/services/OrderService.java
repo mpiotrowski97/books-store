@@ -2,15 +2,14 @@ package tu.kielce.booksstore.order.application.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.cart.application.services.CartService;
 import tu.kielce.booksstore.order.application.mappers.OrdersMapper;
-import tu.kielce.booksstore.order.domain.Order;
-import tu.kielce.booksstore.order.domain.OrderItem;
-import tu.kielce.booksstore.order.domain.OrderItemRepository;
-import tu.kielce.booksstore.order.domain.OrderRepository;
+import tu.kielce.booksstore.order.domain.*;
 import tu.kielce.booksstore.order.presentation.http.model.request.NewOrderModel;
 import tu.kielce.booksstore.order.presentation.http.model.request.OrderItemModel;
+import tu.kielce.booksstore.order.presentation.http.model.response.NewOrderResponse;
 import tu.kielce.booksstore.order.presentation.http.model.response.OrderHistoryModel;
 import tu.kielce.booksstore.payment.application.services.PaymentService;
 import tu.kielce.booksstore.user.services.SecurityUserService;
@@ -31,7 +30,7 @@ public class OrderService {
     private final PaymentService paymentService;
 
     @Transactional
-    public void createOrder(NewOrderModel newOrderModel) {
+    public NewOrderResponse createOrder(NewOrderModel newOrderModel) {
         val orderAddress = newOrderModel.getAddress();
         val currentUser = securityUserService.getCurrentLoggedUser();
         val itemsCost = countItemsCost(newOrderModel.getItems());
@@ -47,12 +46,14 @@ public class OrderService {
                 .street(orderAddress.getStreet())
                 .firstName(currentUser.getFirstName())
                 .lastName(currentUser.getLastName())
-                .phoneNumber(currentUser.getLastName())
+                .phoneNumber(currentUser.getPhoneNumber())
                 .productsCost(itemsCost)
                 .shippingCost(shippingMethod.getPrice())
                 .shippingMethod(shippingMethod.getName())
                 .userId(currentUser.getId())
+                .status(OrderStatus.UNPAID)
                 .value(itemsCost.add(shippingMethod.getPrice()))
+                .email(currentUser.getEmail())
                 .build()
         );
 
@@ -70,7 +71,9 @@ public class OrderService {
             ));
         }
 
-        paymentService.createPayment(order);
+        val paymentResponse = paymentService.createPayment(order);
+
+        return NewOrderResponse.builder().redirectUrl(paymentResponse.getRedirectUri()).build();
     }
 
     private BigDecimal countItemsCost(List<OrderItemModel> items) {

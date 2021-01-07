@@ -14,6 +14,7 @@ import tu.kielce.booksstore.order.domain.Order;
 import tu.kielce.booksstore.payment.domain.dto.PaymentGatewayAuth;
 import tu.kielce.booksstore.payment.infrastructure.config.PayuGatewayConfiguration;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class PayuPaymentGateway implements PaymentGateway {
 
     private final PayuGatewayConfiguration payuGatewayConfiguration;
     private final RestTemplate restTemplate;
+    private final HttpServletRequest httpServletRequest;
 
     @Override
     public PaymentGatewayAuth authenticate() {
@@ -68,7 +70,7 @@ public class PayuPaymentGateway implements PaymentGateway {
 
     private NewPayment createPaymentRequest(Order order) {
         val buyer = NewPaymentBuyer.builder()
-                .email("test")
+                .email(order.getEmail())
                 .firstName(order.getFirstName())
                 .lastName(order.getLastName())
                 .phone(order.getPhoneNumber())
@@ -79,20 +81,21 @@ public class PayuPaymentGateway implements PaymentGateway {
                 .map(item -> NewPaymentItem.builder()
                         .name(item.getTitle())
                         .quantity(item.getQuantity())
-                        .unitPrice(item.getValue().multiply(BigDecimal.valueOf(100)).toString()).build()
+                        .unitPrice(item.getValue().multiply(BigDecimal.valueOf(100)).toBigInteger().toString()).build()
                 )
                 .collect(Collectors.toList());
 
         return NewPayment
                 .builder()
-                .newPaymentBuyer(buyer)
+                .buyer(buyer)
                 .products(items)
-                .notifyUrl("https://localhost")
-                .customerIp("127.0.0.1")
-                .merchantPosId("1")
-                .description("Books store")
-                .currencyCode("USD")
-                .totalAmount(order.getValue().multiply(BigDecimal.valueOf(100)).toString())
+                .notifyUrl(payuGatewayConfiguration.getNotifyUrl())
+                .customerIp("192.168.2.42")
+                .extOrderId(order.getId().toString())
+                .merchantPosId(payuGatewayConfiguration.getPosId())
+                .description(payuGatewayConfiguration.getStoreName())
+                .currencyCode(payuGatewayConfiguration.getCurrency())
+                .totalAmount(order.getValue().multiply(BigDecimal.valueOf(100)).toBigInteger().toString())
                 .build();
     }
 

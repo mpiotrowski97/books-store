@@ -6,5 +6,5 @@ import lombok.Getter;
 @Builder
 @Getter
 public class NewOrderResponse {
-    private final String code;
+    private final String redirectUrl;
 }

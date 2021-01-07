@@ -14,6 +14,7 @@ public class NewPayment {
     private String description;
     private String currencyCode;
     private String totalAmount;
-    private NewPaymentBuyer newPaymentBuyer;
+    private String extOrderId;
+    private NewPaymentBuyer buyer;
     private List<NewPaymentItem> products;
 }

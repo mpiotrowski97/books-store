@@ -10,8 +10,8 @@ import tu.kielce.booksstore.order.domain.Order;
 public class PaymentService {
     private final PaymentGateway paymentGateway;
 
-    public void createPayment(Order order) {
+    public PayuPaymentResponse createPayment(Order order) {
         val authenticateResponse = paymentGateway.authenticate();
-        paymentGateway.createPayment(order, authenticateResponse.getAccessToken());
+        return paymentGateway.createPayment(order, authenticateResponse.getAccessToken());
     }
 }

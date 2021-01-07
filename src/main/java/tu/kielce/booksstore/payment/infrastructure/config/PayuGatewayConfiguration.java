@@ -13,4 +13,12 @@ public class PayuGatewayConfiguration {
     private String clientId;
     @Value("${bs.payment.payu.clientSecret}")
     private String clientSecret;
+    @Value("${bs.payment.payu.posId}")
+    private String posId;
+    @Value("${bs.payment.payu.storeName}")
+    private String storeName;
+    @Value("${bs.payment.payu.currency}")
+    private String currency;
+    @Value("${bs.payment.payu.notifyUrl}")
+    private String notifyUrl;
 }

@@ -55,6 +55,10 @@ public class Order {
 
     private BigDecimal value;
 
+    private String email;
+
+    private OrderStatus status;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private Set<OrderItem> orderItems;
 
