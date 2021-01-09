@@ -29,7 +29,6 @@ public class PayuPaymentGateway implements PaymentGateway {
 
     private final PayuGatewayConfiguration payuGatewayConfiguration;
     private final RestTemplate restTemplate;
-    private final HttpServletRequest httpServletRequest;
 
     @Override
     public PaymentGatewayAuth authenticate() {
