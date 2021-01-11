@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasRole(Role.ADMINISTRATOR.toString())
                 .anyRequest().authenticated()
                 .and()
-                .csrf().csrfTokenRepository(new CookieCsrfTokenRepository());
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Override
