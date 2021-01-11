@@ -57,6 +57,8 @@ public class Order {
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 15)
     private OrderStatus status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
