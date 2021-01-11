@@ -1,6 +1,8 @@
 package tu.kielce.booksstore.user.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -19,8 +21,14 @@ import tu.kielce.booksstore.user.services.SecurityUserService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final SecurityUserService userService;
 
+    @Value("${server.servlet.session.cookie.domain}")
+    private String cookieDomain;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        val cookieCsrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        cookieCsrfTokenRepository.setCookieDomain(cookieDomain);
+
         http
                 .httpBasic()
                 .and()
@@ -36,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasRole(Role.ADMINISTRATOR.toString())
                 .anyRequest().authenticated()
                 .and()
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .csrf().csrfTokenRepository(cookieCsrfTokenRepository);
     }
 
     @Override
