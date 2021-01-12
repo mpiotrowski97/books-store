@@ -17,4 +17,5 @@ public class NewPayment {
     private String extOrderId;
     private NewPaymentBuyer buyer;
     private List<NewPaymentItem> products;
+    private String continueUrl;
 }

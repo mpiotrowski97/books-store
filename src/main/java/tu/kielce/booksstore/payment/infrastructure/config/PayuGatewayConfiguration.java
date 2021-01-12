@@ -21,4 +21,6 @@ public class PayuGatewayConfiguration {
     private String currency;
     @Value("${bs.payment.payu.notifyUrl}")
     private String notifyUrl;
+    @Value("${bs.payment.payu.continueUrl}")
+    private String continueUrl;
 }

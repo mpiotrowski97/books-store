@@ -15,7 +15,6 @@ import tu.kielce.booksstore.order.domain.Order;
 import tu.kielce.booksstore.payment.domain.dto.PaymentGatewayAuth;
 import tu.kielce.booksstore.payment.infrastructure.config.PayuGatewayConfiguration;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -110,6 +109,7 @@ public class PayuPaymentGateway implements PaymentGateway {
                 .description(payuGatewayConfiguration.getStoreName())
                 .currencyCode(payuGatewayConfiguration.getCurrency())
                 .totalAmount(order.getValue().multiply(BigDecimal.valueOf(100)).toBigInteger().toString())
+                .continueUrl(payuGatewayConfiguration.getContinueUrl())
                 .build();
     }
 
