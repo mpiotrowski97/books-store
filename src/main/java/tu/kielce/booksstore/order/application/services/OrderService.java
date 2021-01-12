@@ -2,7 +2,6 @@ package tu.kielce.booksstore.order.application.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.cart.application.services.CartService;
 import tu.kielce.booksstore.order.application.mappers.OrdersMapper;
@@ -75,6 +74,8 @@ public class OrderService {
 
         order.setExternalId(paymentResponse.getOrderId());
         orderRepository.save(order);
+
+        cartService.clearUserCart();
 
         return NewOrderResponse.builder().redirectUrl(paymentResponse.getRedirectUri()).build();
     }
