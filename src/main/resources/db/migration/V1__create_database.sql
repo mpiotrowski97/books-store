@@ -101,6 +101,7 @@ create table orders
         primary key,
     city            varchar(255)   null,
     country         varchar(255)   null,
+    email           varchar(255)   null,
     first_name      varchar(255)   null,
     house_number    varchar(255)   null,
     last_name       varchar(255)   null,
@@ -110,9 +111,11 @@ create table orders
     province        varchar(255)   null,
     shipping_cost   decimal(19, 2) null,
     shipping_method varchar(255)   null,
+    status          varchar(15)    null,
     street          varchar(255)   null,
     user_id         varchar(36)    null,
-    value           decimal(19, 2) null
+    value           decimal(19, 2) null,
+    external_id     varchar(255)   null
 )
     engine = MyISAM;
 

@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import lombok.val;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -64,6 +65,20 @@ public class PayuPaymentGateway implements PaymentGateway {
                 makeUrl(ORDER_API_URI),
                 new HttpEntity<>(createPaymentRequest(order), headers),
                 PayuPaymentResponse.class
+        ).getBody();
+    }
+
+    @Override
+    public PayuCheckPaymentResponse checkPayment(Order order, String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(accessToken);
+
+        return restTemplate.exchange(
+                makeUrl(ORDER_API_URI + "/" + order.getExternalId()),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                PayuCheckPaymentResponse.class
         ).getBody();
     }
 

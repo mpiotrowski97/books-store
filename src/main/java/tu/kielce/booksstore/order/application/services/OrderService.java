@@ -73,6 +73,9 @@ public class OrderService {
 
         val paymentResponse = paymentService.createPayment(order);
 
+        order.setExternalId(paymentResponse.getOrderId());
+        orderRepository.save(order);
+
         return NewOrderResponse.builder().redirectUrl(paymentResponse.getRedirectUri()).build();
     }
 
@@ -88,5 +91,14 @@ public class OrderService {
                 .stream()
                 .map(ordersMapper::toOrderHistory)
                 .collect(Collectors.toList());
+    }
+
+    public List<Order> getUnpaidOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.UNPAID);
+    }
+
+    public void changeOrderStatus(Order order, OrderStatus status) {
+        order.setStatus(status);
+        orderRepository.save(order);
     }
 }

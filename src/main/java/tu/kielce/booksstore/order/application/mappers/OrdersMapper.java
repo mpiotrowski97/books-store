@@ -13,6 +13,8 @@ public class OrdersMapper {
                 .items(order.getOrderItems().stream().map(OrderItem::getQuantity).reduce(1, Integer::sum))
                 .orderId(order.getId())
                 .value(order.getValue())
+                .externalId(order.getExternalId())
+                .status(order.getStatus())
                 .build();
     }
 }

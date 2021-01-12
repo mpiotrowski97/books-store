@@ -6,4 +6,5 @@ import tu.kielce.booksstore.payment.domain.dto.PaymentGatewayAuth;
 public interface PaymentGateway {
     public PaymentGatewayAuth authenticate();
     public PayuPaymentResponse createPayment(Order order, String accessToken);
+    public PayuCheckPaymentResponse checkPayment(Order order, String accessToken);
 }

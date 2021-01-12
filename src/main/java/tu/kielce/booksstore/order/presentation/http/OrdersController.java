@@ -30,7 +30,7 @@ public class OrdersController {
         return ResponseEntity.ok(orderService.currentUserOrders());
     }
 
-    @RequestMapping("/notify")
+    @PostMapping("/notify")
     public ResponseEntity<Void> changeOrderStatus() {
         return ResponseEntity.ok().build();
     }

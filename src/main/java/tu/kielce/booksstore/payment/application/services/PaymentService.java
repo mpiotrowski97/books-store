@@ -14,4 +14,9 @@ public class PaymentService {
         val authenticateResponse = paymentGateway.authenticate();
         return paymentGateway.createPayment(order, authenticateResponse.getAccessToken());
     }
+
+    public PayuCheckPaymentResponse checkPayment(Order order) {
+        val authenticateResponse = paymentGateway.authenticate();
+        return paymentGateway.checkPayment(order, authenticateResponse.getAccessToken());
+    }
 }

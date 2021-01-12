@@ -64,6 +64,8 @@ public class Order {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private Set<OrderItem> orderItems;
 
+    private String externalId;
+
     public void addOrderItem(OrderItem orderItem) {
         if (null == orderItems) {
             orderItems = new HashSet<>();
