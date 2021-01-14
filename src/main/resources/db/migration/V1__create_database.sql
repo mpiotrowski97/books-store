@@ -140,4 +140,17 @@ create table shelves
 )
     engine = MyISAM;
 
+create table reviews
+(
+    id         varchar(36)  not null
+        primary key,
+    author     varchar(255) not null,
+    content    varchar(255) not null,
+    created_at datetime     not null,
+    is_spoiler bit          not null,
+    book_isbn  varchar(255) not null
+)
+    engine = MyISAM;
+
+
 

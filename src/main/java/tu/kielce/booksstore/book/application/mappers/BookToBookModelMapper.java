@@ -1,8 +1,8 @@
-package tu.kielce.booksstore.book.mappers;
+package tu.kielce.booksstore.book.application.mappers;
 
 import org.springframework.stereotype.Component;
 import tu.kielce.booksstore.book.domain.Book;
-import tu.kielce.booksstore.book.web.model.BookModel;
+import tu.kielce.booksstore.book.presentation.model.BookModel;
 
 @Component
 public class BookToBookModelMapper {

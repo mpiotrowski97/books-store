@@ -1,4 +1,4 @@
-package tu.kielce.booksstore.book.specification;
+package tu.kielce.booksstore.book.application.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
