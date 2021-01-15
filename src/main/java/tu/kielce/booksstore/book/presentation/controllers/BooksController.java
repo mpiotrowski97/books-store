@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tu.kielce.booksstore.book.application.services.BooksService;
 import tu.kielce.booksstore.book.domain.BookRepository;
 import tu.kielce.booksstore.book.application.mappers.BookToBookModelMapper;
+import tu.kielce.booksstore.book.presentation.exceptions.BookNotFoundException;
 import tu.kielce.booksstore.book.presentation.model.BookModel;
 
 import static tu.kielce.booksstore.book.application.specification.BookSpecifications.category;
@@ -20,6 +19,7 @@ import static tu.kielce.booksstore.book.application.specification.BookSpecificat
 public class BooksController {
     private final BookRepository bookRepository;
     private final BookToBookModelMapper bookToBookModelMapper;
+    private final BooksService booksService;
 
     @GetMapping("")
     public ResponseEntity<Page<BookModel>> list(
@@ -29,5 +29,17 @@ public class BooksController {
         return ResponseEntity
                 .status(200)
                 .body(bookRepository.findAll(category(category), pageable).map(bookToBookModelMapper::map));
+    }
+
+    @GetMapping("{isbn}")
+    public ResponseEntity<BookModel> getOne(@PathVariable String isbn) {
+        return ResponseEntity
+                .status(200)
+                .body(
+                        booksService
+                                .getByIsbn(isbn)
+                                .map(bookToBookModelMapper::map)
+                                .orElseThrow(BookNotFoundException::new)
+                );
     }
 }
