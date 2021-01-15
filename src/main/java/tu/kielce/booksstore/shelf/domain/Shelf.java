@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,5 +31,5 @@ public class Shelf {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shelf")
-    private Set<BookShelf> books;
+    private Set<BookShelf> books = new HashSet<>();
 }
