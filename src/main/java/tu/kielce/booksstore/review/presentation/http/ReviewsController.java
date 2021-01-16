@@ -9,6 +9,7 @@ import tu.kielce.booksstore.review.presentation.http.model.ReviewDto;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/reviews")
@@ -25,5 +26,17 @@ public class ReviewsController {
     @GetMapping("/{bookIsbn}")
     public ResponseEntity<List<ReviewDto>> booksReview(@PathVariable String bookIsbn) {
         return ResponseEntity.ok(reviewService.getReviewsForBook(bookIsbn));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("{id}/spoiler")
+    public ResponseEntity<Void> changeReview(@PathVariable UUID id) {
+        reviewService.markAsSpoiler(id);
+        return ResponseEntity.noContent().build();
     }
 }

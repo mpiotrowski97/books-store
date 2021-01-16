@@ -38,4 +38,8 @@ public class Review {
     private String author;
 
     private boolean isSpoiler;
+
+    public void markAsSpoiler() {
+        isSpoiler = true;
+    }
 }

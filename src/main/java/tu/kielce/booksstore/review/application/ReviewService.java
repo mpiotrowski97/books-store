@@ -13,6 +13,7 @@ import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,5 +49,17 @@ public class ReviewService {
                 .stream()
                 .map(reviewMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteReview(UUID id) {
+        reviewRepository.delete(reviewRepository.findById(id).orElseThrow(ReviewDoesNotExistException::new));
+    }
+
+    public void markAsSpoiler(UUID id) {
+        val review = reviewRepository.findById(id).orElseThrow(ReviewDoesNotExistException::new);
+
+        review.markAsSpoiler();
+
+        reviewRepository.save(review);
     }
 }
