@@ -11,6 +11,7 @@ import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,5 +39,12 @@ public class ShelvesService {
                 .stream()
                 .map(shelvesMapper::mapToDto)
                 .collect(Collectors.toSet());
+    }
+
+    public void deleteShelf(UUID shelfId) {
+        val currentLoggedUser = securityUserService.getCurrentLoggedUser();
+
+        shelfRepository.delete(shelfRepository.findByIdAndUserId(shelfId, currentLoggedUser.getId())
+                .orElseThrow(ShelfDoesNotExistException::new));
     }
 }

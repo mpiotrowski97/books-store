@@ -9,6 +9,7 @@ import tu.kielce.booksstore.shelf.presentation.model.ShelfDto;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/shelves")
@@ -25,5 +26,11 @@ public class ShelvesController {
     @PostMapping("")
     public ResponseEntity<ShelfDto> create(@RequestBody @Valid CreateShelfRequest createShelfRequest) {
         return ResponseEntity.ok(shelvesService.createShelf(createShelfRequest));
+    }
+
+    @DeleteMapping("{shelfId}")
+    public ResponseEntity<Void> remove(@PathVariable UUID shelfId) {
+        shelvesService.deleteShelf(shelfId);
+        return ResponseEntity.noContent().build();
     }
 }
