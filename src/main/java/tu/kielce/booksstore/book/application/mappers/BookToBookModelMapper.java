@@ -16,6 +16,7 @@ public class BookToBookModelMapper {
                 .category(book.getCategory().getName())
                 .publishedBy(book.getPublishedBy())
                 .price(book.getPrice())
+                .quantity(book.getQuantity())
                 .build();
     }
 }

@@ -15,4 +15,5 @@ public class BookModel {
     private final String category;
     private final String description;
     private final BigDecimal price;
+    private final int quantity;
 }

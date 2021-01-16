@@ -3,6 +3,9 @@ package tu.kielce.booksstore.order.application.services;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import tu.kielce.booksstore.book.application.services.BookDoesNotExist;
+import tu.kielce.booksstore.book.application.services.BooksService;
+import tu.kielce.booksstore.cart.application.exceptions.BookOutOfStockException;
 import tu.kielce.booksstore.cart.application.services.CartService;
 import tu.kielce.booksstore.order.application.mappers.OrdersMapper;
 import tu.kielce.booksstore.order.domain.*;
@@ -27,6 +30,7 @@ public class OrderService {
     private final CartService cartService;
     private final OrdersMapper ordersMapper;
     private final PaymentService paymentService;
+    private final BooksService booksService;
 
     @Transactional
     public NewOrderResponse createOrder(NewOrderModel newOrderModel) {
@@ -57,17 +61,25 @@ public class OrderService {
         );
 
         for (OrderItemModel orderItemModel : newOrderModel.getItems()) {
+            val book = booksService.getByIsbn(orderItemModel.getBookIsbn()).orElseThrow(BookDoesNotExist::new);
+
+            if (book.hasQuantity(orderItemModel.getQuantity())) {
+                throw new BookOutOfStockException();
+            }
+
             order.addOrderItem(orderItemRepository.save(
                     OrderItem
                             .builder()
                             .order(order)
-                            .bookIsbn(orderItemModel.getId().toString())
+                            .bookIsbn(orderItemModel.getBookIsbn())
                             .price(orderItemModel.getBookPrice())
                             .quantity(orderItemModel.getQuantity())
                             .title(orderItemModel.getBookTitle())
                             .value(orderItemModel.getValue())
                             .build()
             ));
+
+            booksService.changeBookQuantity(book.getIsbn(), book.getQuantity() - orderItemModel.getQuantity());
         }
 
         val paymentResponse = paymentService.createPayment(order);

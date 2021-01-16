@@ -9,6 +9,7 @@ import java.util.UUID;
 public class OrderItemModel {
     private BigDecimal bookPrice;
     private String bookTitle;
+    private String bookIsbn;
     private UUID id;
     private int quantity;
     private BigDecimal value;
