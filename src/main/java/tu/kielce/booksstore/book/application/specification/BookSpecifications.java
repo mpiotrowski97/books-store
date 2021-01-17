@@ -17,4 +17,9 @@ public class BookSpecifications {
         return (Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder cb)
                 -> StringUtils.isEmpty(categoryName) ? null : cb.equal(root.join("category").get("name"), categoryName);
     }
+
+    public static Specification<Book> searchCriteria(String search) {
+        return (Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder cb)
+                -> StringUtils.isEmpty(search) ? null : cb.like(root.get("title"), "%" + search + "%");
+    }
 }

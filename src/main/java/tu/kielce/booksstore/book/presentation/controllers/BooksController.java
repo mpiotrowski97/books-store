@@ -12,6 +12,7 @@ import tu.kielce.booksstore.book.presentation.exceptions.BookNotFoundException;
 import tu.kielce.booksstore.book.presentation.model.BookModel;
 
 import static tu.kielce.booksstore.book.application.specification.BookSpecifications.category;
+import static tu.kielce.booksstore.book.application.specification.BookSpecifications.searchCriteria;
 
 @RestController
 @RequestMapping("books")
@@ -29,6 +30,16 @@ public class BooksController {
         return ResponseEntity
                 .status(200)
                 .body(bookRepository.findAll(category(category), pageable).map(bookToBookModelMapper::map));
+    }
+
+    @GetMapping("search")
+    public ResponseEntity<Page<BookModel>> search(
+            Pageable pageable,
+            @RequestParam(defaultValue = "", name = "search") String query
+    ) {
+        return ResponseEntity
+                .status(200)
+                .body(bookRepository.findAll(searchCriteria(query), pageable).map(bookToBookModelMapper::map));
     }
 
     @GetMapping("{isbn}")
