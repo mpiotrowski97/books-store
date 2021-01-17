@@ -11,6 +11,8 @@ import tu.kielce.booksstore.book.application.mappers.BookToBookModelMapper;
 import tu.kielce.booksstore.book.presentation.exceptions.BookNotFoundException;
 import tu.kielce.booksstore.book.presentation.model.BookModel;
 
+import java.util.UUID;
+
 import static tu.kielce.booksstore.book.application.specification.BookSpecifications.category;
 import static tu.kielce.booksstore.book.application.specification.BookSpecifications.searchCriteria;
 
@@ -40,6 +42,11 @@ public class BooksController {
         return ResponseEntity
                 .status(200)
                 .body(bookRepository.findAll(searchCriteria(query), pageable).map(bookToBookModelMapper::map));
+    }
+
+    @GetMapping("shelf/{shelfId}")
+    public ResponseEntity<Page<BookModel>> getBooksOnShelf(Pageable pageable, @PathVariable UUID shelfId) {
+        return ResponseEntity.ok(booksService.getBooksOnShelf(shelfId, pageable));
     }
 
     @GetMapping("{isbn}")
