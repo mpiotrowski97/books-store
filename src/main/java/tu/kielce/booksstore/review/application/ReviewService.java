@@ -9,7 +9,7 @@ import tu.kielce.booksstore.review.domain.Review;
 import tu.kielce.booksstore.review.domain.ReviewRepository;
 import tu.kielce.booksstore.review.presentation.http.model.NewReviewRequest;
 import tu.kielce.booksstore.review.presentation.http.model.ReviewDto;
-import tu.kielce.booksstore.user.services.SecurityUserService;
+import tu.kielce.booksstore.user.application.services.SecurityUserService;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -6,14 +6,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.book.application.services.BookDoesNotExist;
 import tu.kielce.booksstore.book.application.services.BooksService;
-import tu.kielce.booksstore.cart.api.exception.CartItemNotFoundException;
+import tu.kielce.booksstore.cart.presentation.exception.CartItemNotFoundException;
 import tu.kielce.booksstore.cart.application.exceptions.BookOutOfStockException;
 import tu.kielce.booksstore.cart.domain.CartItem;
 import tu.kielce.booksstore.cart.domain.CartItemRepository;
-import tu.kielce.booksstore.cart.api.model.AddCartItemModel;
+import tu.kielce.booksstore.cart.presentation.model.AddCartItemModel;
 import tu.kielce.booksstore.cart.domain.dto.SummaryDto;
 import tu.kielce.booksstore.user.domain.SecurityUserDetails;
-import tu.kielce.booksstore.user.services.SecurityUserService;
+import tu.kielce.booksstore.user.application.services.SecurityUserService;
 
 import javax.transaction.Transactional;
 import java.util.UUID;

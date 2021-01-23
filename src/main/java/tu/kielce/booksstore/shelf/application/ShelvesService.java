@@ -12,7 +12,7 @@ import tu.kielce.booksstore.shelf.domain.ShelfRepository;
 import tu.kielce.booksstore.shelf.presentation.model.CreateShelfRequest;
 import tu.kielce.booksstore.shelf.presentation.model.BookShelfDto;
 import tu.kielce.booksstore.shelf.presentation.model.ShelfDto;
-import tu.kielce.booksstore.user.services.SecurityUserService;
+import tu.kielce.booksstore.user.application.services.SecurityUserService;
 
 import java.util.Collection;
 import java.util.HashSet;

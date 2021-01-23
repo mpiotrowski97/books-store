@@ -14,7 +14,7 @@ import tu.kielce.booksstore.order.presentation.http.model.request.OrderItemModel
 import tu.kielce.booksstore.order.presentation.http.model.response.NewOrderResponse;
 import tu.kielce.booksstore.order.presentation.http.model.response.OrderHistoryModel;
 import tu.kielce.booksstore.payment.application.services.PaymentService;
-import tu.kielce.booksstore.user.services.SecurityUserService;
+import tu.kielce.booksstore.user.application.services.SecurityUserService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
