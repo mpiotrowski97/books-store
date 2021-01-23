@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tu.kielce.booksstore.book.application.mappers.BookToBookModelMapper;
 import tu.kielce.booksstore.book.domain.Book;

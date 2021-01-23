@@ -10,7 +10,7 @@ import tu.kielce.booksstore.book.domain.Category;
 import tu.kielce.booksstore.book.domain.CategoryRepository;
 import tu.kielce.booksstore.context.factory.ContextInitModelFactory;
 import tu.kielce.booksstore.context.web.model.ContextInitModel;
-import tu.kielce.booksstore.user.api.facade.UserFacade;
+import tu.kielce.booksstore.user.services.SecurityUserService;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ContextController {
     private final CategoryRepository categoryRepository;
     private final ContextInitModelFactory contextInitModelFactory;
-    private final UserFacade userFacade;
+    private final SecurityUserService securityUserService;
 
     @GetMapping("init")
     public ResponseEntity<ContextInitModel> appInit(Principal principal) {
@@ -32,7 +32,7 @@ public class ContextController {
                 .status(200)
                 .body(
                         Optional.ofNullable(principal)
-                                .map(user -> contextInitModelFactory.create(userFacade.getCurrentLoggedUser(), categories))
+                                .map(user -> contextInitModelFactory.create(securityUserService.getCurrentLoggedUser(), categories))
                                 .orElse(ContextInitModel.builder().categories(categories).build())
                 );
     }
