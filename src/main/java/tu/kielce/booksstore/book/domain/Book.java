@@ -1,7 +1,6 @@
 package tu.kielce.booksstore.book.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,6 +9,9 @@ import java.math.BigDecimal;
 @Table(name = "books")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @Column(length = 13, updatable = false, nullable = false)

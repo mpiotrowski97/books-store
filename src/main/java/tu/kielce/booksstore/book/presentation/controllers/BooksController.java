@@ -10,7 +10,9 @@ import tu.kielce.booksstore.book.domain.BookRepository;
 import tu.kielce.booksstore.book.application.mappers.BookToBookModelMapper;
 import tu.kielce.booksstore.book.presentation.exceptions.BookNotFoundException;
 import tu.kielce.booksstore.book.presentation.model.BookModel;
+import tu.kielce.booksstore.book.presentation.model.CreateBookModel;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static tu.kielce.booksstore.book.application.specification.BookSpecifications.category;
@@ -59,5 +61,17 @@ public class BooksController {
                                 .map(bookToBookModelMapper::map)
                                 .orElseThrow(BookNotFoundException::new)
                 );
+    }
+
+    @DeleteMapping("{isbn}")
+    public ResponseEntity<Void> delete(@PathVariable String isbn) {
+        booksService.deleteBook(isbn);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Void> create(@RequestBody @Valid CreateBookModel createBookModel) {
+        booksService.createBook(createBookModel);
+        return ResponseEntity.noContent().build();
     }
 }
